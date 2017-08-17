@@ -1,12 +1,12 @@
 ﻿from urllib import request
 
-myUrl = "http://............"  # Адрес сайта
-file = open("html.txt", mode='w+', encoding='ANSI')
-otvet = request.urlopen(myUrl)
-our_html_page = otvet.readlines()
-	for lines in our_html_page:
+myUrl = "http://............"  # Адрес сайта для выгрузки
+file = open("html.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи в него html кода страницы
+otvet = request.urlopen(myUrl)  # Открываем сайт по выбранному адресу
+our_html_page = otvet.readlines()  # Считываем строки html кода сайта
+	for lines in our_html_page:  # В цикле записываем считанные строки в текстовый файл
 		try:
 			file.write(lines.decode('ANSI'))
 		except:
 			continue
-file.close()
+file.close()  # Закрываем файл
