@@ -1,6 +1,6 @@
 ﻿from urllib import request
 
-myUrl = "http://............"  
+myUrl = "http://............"  # Адрес сайта
 file = open("html.txt", mode='w+', encoding='ANSI')
 otvet = request.urlopen(myUrl)
 our_html_page = otvet.readlines()
