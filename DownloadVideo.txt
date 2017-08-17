@@ -1,0 +1,12 @@
+﻿from urllib import request
+
+myUrl = "http://............"  
+file = open("html.txt", mode='w+', encoding='ANSI')
+otvet = request.urlopen(myUrl)
+our_html_page = otvet.readlines()
+	for lines in our_html_page:
+		try:
+			file.write(lines.decode('ANSI'))
+		except:
+			continue
+file.close()
