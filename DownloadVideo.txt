@@ -1,6 +1,6 @@
 ﻿from urllib import request
 
-myUrl = "http://............"  # Адрес сайта для выгрузки
+myUrl = "https://www.youtube.com/watch?v=gbs0BJwXpbU&list=PLyfVjOYzujuj1J2z2CgHw1p4PdDwHuRsd"  # Адрес сайта для выгрузки
 file = open("html.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи в него html кода страницы
 otvet = request.urlopen(myUrl)  # Открываем сайт по выбранному адресу
 our_html_page = otvet.readlines()  # Считываем строки html кода сайта
