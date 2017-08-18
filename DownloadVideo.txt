@@ -1,4 +1,6 @@
-﻿from urllib import request
+﻿import re
+import os
+from urllib import request
 
 myUrl = "https://www.youtube.com/watch?v=gbs0BJwXpbU&list=PLyfVjOYzujuj1J2z2CgHw1p4PdDwHuRsd"  # Адрес сайта для выгрузки
 file = open("html.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи в него html кода страницы
@@ -10,3 +12,15 @@ our_html_page = otvet.readlines()  # Считываем строки html код
 		except:
 			continue
 file.close()  # Закрываем файл
+
+search_line = r"\/watch\?v=[^\s\"]+"
+search_file = open("html.txt", mode='r+', encoding='ANSI')
+urls_file = open("urls.txt", mode='r+', encoding='ANSI')
+from_search_file = search_file.read()
+rezults = re.findall(search_line, from_search_file)
+for item in rezults:
+	if item.find('index') != -1:
+		print("https://www.youtube.com" + item)
+		urls_file.write("https://www.youtube.com" + item + '\n')
+search_file.close()
+os.remove('html.txt')
