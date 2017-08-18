@@ -4,37 +4,49 @@ import pytube
 import linecache
 from urllib import request
 
-myUrl = "https://www.youtube.com/watch?v=gbs0BJwXpbU&list=PLyfVjOYzujuj1J2z2CgHw1p4PdDwHuRsd"  # Адрес сайта для выгрузки
-file = open("html.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи в него html кода страницы
-otvet = request.urlopen(myUrl)  # Открываем сайт по выбранному адресу
-our_html_page = otvet.readlines()  # Считываем строки html кода сайта
+def saveHtml(myUrl):
+	file = open("html.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи в него html кода страницы
+	otvet = request.urlopen(myUrl)  # Открываем сайт по выбранному адресу
+	our_html_page = otvet.readlines()  # Считываем строки html кода сайта
 	for lines in our_html_page:  # В цикле записываем считанные строки в текстовый файл
 		try:
 			file.write(lines.decode('ANSI'))
 		except:
 			continue
-file.close()  # Закрываем файл
+	file.close()  # Закрываем файл
 
-search_line = r"\/watch\?v=[^\s\"]+"  # Регулярное выражение для поиска url адресов видео из плейлиста
-search_file = open("html.txt", mode='r+', encoding='ANSI')  # Открываем для поиска файл с нашим html кодом страницы
-urls_file = open("urls.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи всех найденных url адресов
-from_search_file = search_file.read()  
-rezults = re.findall(search_line, from_search_file)  # Ищем в файле совпадения с нашим регулярным выражением
-for item in rezults:
-	if item.find('index') != -1:  # если в найденной строке встречается слово index (что указывает на то что оно находится в плейлисте), то
-		print("https://www.youtube.com" + item)  # Выводим список всех найденных совпадений
-		urls_file.write("https://www.youtube.com" + item + '\n')  # В файл с url адресами записываем конечный результат
-search_file.close()  # Закрываем файл html.txt
-os.remove('html.txt')  # Удаляем файл html.txt
+def searcUrls():
+	search_line = r"\/watch\?v=[^\s\"]+"  # Регулярное выражение для поиска url адресов видео из плейлиста
+	search_file = open("html.txt", mode='r+', encoding='ANSI')  # Открываем для поиска файл с нашим html кодом страницы
+	urls_file = open("urls.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи всех найденных url адресов
+	from_search_file = search_file.read()  
+	rezults = re.findall(search_line, from_search_file)  # Ищем в файле совпадения с нашим регулярным выражением
+	for item in rezults:
+		if item.find('index') != -1:  # если в найденной строке встречается слово index (что указывает на то что оно находится в плейлисте), то
+			print("https://www.youtube.com" + item)  # Выводим список всех найденных совпадений
+			urls_file.write("https://www.youtube.com" + item + '\n')  # В файл с url адресами записываем конечный результат
+	search_file.close()  # Закрываем файл html.txt
+	os.remove('html.txt')  # Удаляем файл html.txt
 
-n = 1
-while True:
-    url = linecache.getline('urls.txt', n)
-    if url != "":
-        yt = pytube.YouTube(url)
-        video = yt.get('mp4', '720p')
-        video.download('C:/Users/Вадим/Desktop')
-        n += 2
-    else:
-        break
+def downloadVideo():
+
+	n = 1
+	while True:
+		url = linecache.getline('urls.txt', n)
+		if url != "":
+			yt = pytube.YouTube(url)
+			video = yt.get('mp4', '720p')
+			video.download('C:/Users/Вадим/Desktop')
+			n += 2
+		else:
+			break
+		
+myUrl = "https://www.youtube.com/watch?v=gbs0BJwXpbU&list=PLyfVjOYzujuj1J2z2CgHw1p4PdDwHuRsd"  # Адрес сайта для выгрузки
+saveHtml(myUrl)
+searchUrls()
+downloadVideo()
+
+
+
+
 
