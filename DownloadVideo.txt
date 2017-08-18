@@ -24,3 +24,4 @@ for item in rezults:
 		urls_file.write("https://www.youtube.com" + item + '\n')  # В файл с url адресами записываем конечный результат
 search_file.close()  # Закрываем файл html.txt
 os.remove('html.txt')  # Удаляем файл html.txt
+ттт
