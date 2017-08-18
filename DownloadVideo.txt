@@ -13,14 +13,14 @@ our_html_page = otvet.readlines()  # Считываем строки html код
 			continue
 file.close()  # Закрываем файл
 
-search_line = r"\/watch\?v=[^\s\"]+"
-search_file = open("html.txt", mode='r+', encoding='ANSI')
-urls_file = open("urls.txt", mode='r+', encoding='ANSI')
-from_search_file = search_file.read()
-rezults = re.findall(search_line, from_search_file)
+search_line = r"\/watch\?v=[^\s\"]+"  # Регулярное выражение для поиска url адресов видео из плейлиста
+search_file = open("html.txt", mode='r+', encoding='ANSI')  # Открываем для поиска файл с нашим html кодом страницы
+urls_file = open("urls.txt", mode='r+', encoding='ANSI')  # Создаём или перезаписываем файл для записи всех найденных url адресов
+from_search_file = search_file.read()  
+rezults = re.findall(search_line, from_search_file)  # Ищем в файле совпадения с нашим регулярным выражением
 for item in rezults:
-	if item.find('index') != -1:
-		print("https://www.youtube.com" + item)
-		urls_file.write("https://www.youtube.com" + item + '\n')
-search_file.close()
-os.remove('html.txt')
+	if item.find('index') != -1:  # если в найденной строке встречается слово index (что указывает на то что оно находится в плейлисте), то
+		print("https://www.youtube.com" + item)  # Выводим список всех найденных совпадений
+		urls_file.write("https://www.youtube.com" + item + '\n')  # В файл с url адресами записываем конечный результат
+search_file.close()  # Закрываем файл html.txt
+os.remove('html.txt')  # Удаляем файл html.txt
