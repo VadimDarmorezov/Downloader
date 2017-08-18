@@ -15,7 +15,7 @@ file.close()  # Закрываем файл
 
 search_line = r"\/watch\?v=[^\s\"]+"  # Регулярное выражение для поиска url адресов видео из плейлиста
 search_file = open("html.txt", mode='r+', encoding='ANSI')  # Открываем для поиска файл с нашим html кодом страницы
-urls_file = open("urls.txt", mode='r+', encoding='ANSI')  # Создаём или перезаписываем файл для записи всех найденных url адресов
+urls_file = open("urls.txt", mode='w+', encoding='ANSI')  # Создаём или перезаписываем файл для записи всех найденных url адресов
 from_search_file = search_file.read()  
 rezults = re.findall(search_line, from_search_file)  # Ищем в файле совпадения с нашим регулярным выражением
 for item in rezults:
