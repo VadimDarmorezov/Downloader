@@ -1,5 +1,7 @@
 ﻿import re
 import os
+import pytube
+import linecache
 from urllib import request
 
 myUrl = "https://www.youtube.com/watch?v=gbs0BJwXpbU&list=PLyfVjOYzujuj1J2z2CgHw1p4PdDwHuRsd"  # Адрес сайта для выгрузки
@@ -24,4 +26,15 @@ for item in rezults:
 		urls_file.write("https://www.youtube.com" + item + '\n')  # В файл с url адресами записываем конечный результат
 search_file.close()  # Закрываем файл html.txt
 os.remove('html.txt')  # Удаляем файл html.txt
-ттт
+
+n = 1
+while True:
+    url = linecache.getline('urls.txt', n)
+    if url != "":
+        yt = pytube.YouTube(url)
+        video = yt.get('mp4', '720p')
+        video.download('C:/Users/Вадим/Desktop')
+        n += 2
+    else:
+        break
+
